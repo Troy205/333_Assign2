@@ -10,7 +10,7 @@ theta = np.arctan2(Y, X)
 
 n_air = 1.0
 n_glass = 1.5
-theta_B = np.arctan(n_glass/n_air) # brewster
+theta_B = np.arctan(n_glass/n_air) # Brewster angle calculation for light directly overhead
 
 wavelengths = {"R": 650, "G": 530, "B": 450}
 thickness_factor = 2000
@@ -32,7 +32,6 @@ for i, (color, wl) in enumerate(wavelengths.items()):
     intensity = angular_mod * fp_term
     image[..., i] = intensity
 
-# Normalize for display
 image /= image.max()
 
 plt.imshow(image, origin="lower", extent=[-1, 1, -1, 1])

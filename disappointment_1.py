@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # This code achieves nothing but producing an image. There is no real physics here.
+# This file uses some chatGPT, do not include in this form in final project.
 
 size = 800
 x = np.linspace(-1, 1, size)
@@ -16,7 +17,7 @@ wavelengths = {
     "B": 450
 }
 
-thickness_factor = 2000  # changes fringe density
+thickness_factor = 2000
 phase = 2 * np.pi * R * thickness_factor
 
 angular_modulation = np.sin(theta) ** 2
@@ -24,7 +25,7 @@ angular_modulation = np.sin(theta) ** 2
 image = np.zeros((size, size, 3))
 
 for i, (color, wl) in enumerate(wavelengths.items()):
-    # Phase shift dependent on wavelength
+
     intensity = 0.5 * (1 + np.cos(phase / wl))
     intensity *= angular_modulation 
     image[..., i] = intensity
