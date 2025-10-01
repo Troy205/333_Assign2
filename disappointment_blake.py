@@ -13,7 +13,7 @@ somewhat visible.
 """
 
 plt.show() # type: ignore
-size = 800
+size = 100
 x = np.linspace(-1, 1, size)
 y = np.linspace(-1, 1, size)
 X, Y = np.meshgrid(x, y)
@@ -24,7 +24,7 @@ n_air = 1.0
 n_glass = 1.5
 theta_B = np.arctan(n_glass/n_air) # Brewster angle calculation for light directly overhead
 
-wavelengths = np.linspace(300e-9, 800-9, 100)
+wavelengths = np.linspace(300e-9, 800e-9, 50)
 thickness_factor = 1e9
 F = 0.65  # Fabry–Perot finesse
 
@@ -44,12 +44,34 @@ for wl in wavelengths:
     #FP intensity scaled with spectral radiance from the Sun
     intensity = angular_mod * fp_term * intensity_from_wavelength(wl) 
     r, g, b = wavelength_to_rgb(wl * 1e9) # Get RGB fractions
-    #Manipulate RGB components accordingly
-    image[..., 0] += intensity * r
-    image[..., 1] += intensity * g
-    image[..., 2] += intensity * b
-
-image /= image.max()
+    for y in range(size):
+        for x in range(size):
+            #Manipulate RGB components accordingly
+            image[y][x][0] += intensity[y][x] * r
+            image[y][x][1] += intensity[y][x] * g
+            image[y][x][2] += intensity[y][x] * b
+maxi = 0
+for y in range(size):
+    for x in range(size):
+        #Create rings
+        #image[y][x][1] *= max(0, math.sin(1/3*math.sqrt((x-size/2)**2 + (y-size/2)**2)))
+        
+        #Log the intensities
+        #for c in range(3):
+        #    image[y][x][c] = max(0, math.log(max(0.1, image[y][x][c])))
+        
+        #Test the wavelength range you're scanning over
+        # r, g, b = wavelength_to_rgb(wavelengths[(50*x)//size])
+        # image[y][x][0] = r
+        # image[y][x][1] = 0
+        # image[y][x][2] = b
+        
+        #Divide each colour in each pixel by the maximum intensity pixel value
+        maxi = max(maxi, math.sqrt(image[y][x][0]**2 + image[y][x][1]**2 + image[y][x][2]**2))
+for y in range(size):
+    for x in range(size):
+        for c in range(3):
+            image[y][x][c] /= maxi
 
 plt.imshow(image, origin="lower", extent=[-1, 1, -1, 1]) # type: ignore
 plt.axis("off") # type: ignore
