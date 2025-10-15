@@ -11,8 +11,6 @@ The result is the right colour! The rings are a bit more... suspicious. It's
 indistinguishable for low finesse, but at the value I've set here they're 
 somewhat visible.
 """
-
-plt.show() # type: ignore
 size = 100
 x = np.linspace(-1, 1, size)
 y = np.linspace(-1, 1, size)
@@ -76,3 +74,7 @@ for y in range(size):
 plt.imshow(image, origin="lower", extent=[-1, 1, -1, 1]) # type: ignore
 plt.axis("off") # type: ignore
 plt.show() # type: ignore
+
+print(image[0, :, 0])
+plt.plot(intensity[0, :]) #type: ignore
+plt.show() #type: ignore
