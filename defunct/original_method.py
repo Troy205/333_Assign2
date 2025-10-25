@@ -74,7 +74,6 @@ for y in range(size):
 plt.imshow(image, origin="lower", extent=[-1, 1, -1, 1]) # type: ignore
 plt.axis("off") # type: ignore
 plt.show() # type: ignore
-
 print(image[0, :, 0])
 plt.plot(intensity[0, :]) #type: ignore
 plt.show() #type: ignore
