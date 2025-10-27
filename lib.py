@@ -199,3 +199,6 @@ def linear_image_to_srgb_image(img_linear: np.ndarray, clip_percentile=99.2, sat
     img = linear_srgb_to_srgb(img)
     img = _np.clip(img, 0.0, 1.0)
     return img
+
+def phase_shift(n1: float, thickness: float, angle: float, wavelength: float):
+    return 2 * math.pi * thickness * n1 * math.cos(angle)/wavelength

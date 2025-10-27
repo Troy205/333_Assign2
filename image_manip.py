@@ -26,10 +26,11 @@ _, green_line = get_component(polarised, 1, 0, 1578, 1125, 1404)
 _, blue_line = get_component(polarised, 2, 0, 1578, 1125, 1404)
 
 #show image with line to show slice
-plt.imshow(new_polar)
+# plt.imshow(new_polar)
 
 #if you want to plot the components
-# plt.plot(red_line)
-# plt.plot(green_line)
-# plt.plot(blue_line)
+plt.plot(red_line, color='red', label='Red Channel')
+plt.plot(green_line, color='green', label='Green Channel')
+plt.plot(blue_line, color='blue', label='Blue Channel')
+plt.legend()
 plt.show()
