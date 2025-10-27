@@ -1,8 +1,23 @@
 
 # Physics 333 Assignment 2
 
-The disappointment 1 file is a quick test at producing a pretty image. It should not be taken as a physical simulation of the situation, but as just a test on producing color gradients, and it is a good starting place.
+Figure_1.png is the raw render of my model
+polar_components.png is the rbg components along the slice shown in polar_sliced.png, from out toward the center
+similarly, render_components.png is the rgb components along the slice shown in render_sliced.png from out toward the center
 
-The disappointment 2 file then adds a theoretical calculation of the Brewster's angle, responsible for the fading on one axis instead of the previous trig function. We also now pretend that the polariser acts as an FP system, introducing finesse into the image.
+code:
+original_method.py
+ill admit we kind of have some arbitrary physical params i didnt even try changing(there are so many), but they are, lets say, suitable
+the code scans over a linear distribution of wavelengths over the visible spectrum, and for each one:
+calculates and angular term which basically dims the light the closer it is to brewster angle
+the base intensity is the light from the sun as a black body at 5777K, and we split the wavelength into rgb colour channels to render an image
+however, we also want to take the phase shift into account
+this is proportinal to 2 * pi * thickness * n1 * math.cos(refraction_angle)/wavelength of the ray into the material
+to find the angle, uhhh
+basically find the angle the ray takes from the glass to the observer using atan(sqrt(x^2+y^2)/distance to glass)
+then use snells law to find the angle of the ray inside the glass
+then apply interference using cos^2(phase/2) (im not sure about this step)
+then normalise the image by dividing the intensity of each pixel by the maximum intensity pixel's intensity
 
-I would recommend that the next steps are tuning the preliminary images or mapping out the physical equations describing the system better. If explaining the physics proves unnecessarily difficult, then making a simulation is also feasible.
+explanation for discrepancy:
+lack of tuning physical parameters: changing thickness for example a tiny bit results in different favoured hues
